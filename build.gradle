@@ -1,0 +1,49 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.4'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:2020.0.3"
+        mavenBom 'org.apache.logging.log4j:log4j-bom:2.15.0'
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // lombok
+    implementation 'org.projectlombok:lombok:1.18.18'
+    annotationProcessor('org.projectlombok:lombok')
+
+    // feign
+    compile 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation group: 'io.github.openfeign', name: 'feign-httpclient', version: '10.10.1'
+
+    // transaction
+    implementation 'org.springframework.retry:spring-retry'
+    implementation 'org.springframework:spring-tx'
+
+    // database
+    implementation 'ru.yandex.clickhouse:clickhouse-jdbc:0.2.4'
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+    implementation 'org.mybatis:mybatis:3.5.6'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.7.4'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
